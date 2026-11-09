@@ -5,4 +5,4 @@ After=pulseaudio.service
 [Service]
 Type=oneshot
 ExecStartPre=/bin/sleep 3
-ExecStart=/home/infrun42/tars-audio-setup.sh
+ExecStart=%h/tars-audio-setup.sh

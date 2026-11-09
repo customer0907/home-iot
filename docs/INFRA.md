@@ -18,7 +18,7 @@
 
 ### 이전 이력
 - **AWS EC2** → 디스크 용량 부족 → **GCP VM**(MQTT로 HA 연동) → SSH 접속 불가·유동 IP 문제 → **현재 집 서버로 이전**
-- 흔적: HA 스택 compose 경로가 `~/mnt/ha/home/infrun42/` (이전 서버 홈 디렉터리를 통째로 옮긴 구조)
+- 흔적: HA 스택 compose 경로가 `~/mnt/ha$HOME/` (이전 서버 홈 디렉터리를 통째로 옮긴 구조)
 
 ## 2. 전체 구조
 
@@ -52,8 +52,8 @@ flowchart LR
 
 | 컨테이너 | 이미지 | 네트워크 | 포트 | 볼륨/장치 | compose 위치 |
 |---|---|---|---|---|---|
-| `homeassistant` | `ghcr.io/home-assistant/home-assistant:stable` (2026.5.4) | host | 8123 | `./homeassistant:/config` | `~/mnt/ha/home/infrun42/docker-compose.yml` |
-| `mosquitto` | `eclipse-mosquitto:latest` | `infrun42_default` | 1883 | config/data/log | 위와 동일 |
+| `homeassistant` | `ghcr.io/home-assistant/home-assistant:stable` (2026.5.4) | host | 8123 | `./homeassistant:/config` | `~/mnt/ha$HOME/docker-compose.yml` |
+| `mosquitto` | `eclipse-mosquitto:latest` | `<user>_default` | 1883 | config/data/log | 위와 동일 |
 | `zigbee2mqtt` | `koenkk/zigbee2mqtt` | bridge | 8080 (프런트엔드) | `./data`, `/dev` 전체, `/run/udev` | `~/zigbee2mqtt/docker-compose.yaml` |
 | `mediamtx` | `bluenviron/mediamtx:latest` | host | RTSP 8554 | - | `~/mediamtx/docker-compose.yml` |
 

@@ -14,7 +14,7 @@ set -uo pipefail
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
-BASE_DIR="/home/infrun42/docker-watchdog"
+BASE_DIR="$HOME/docker-watchdog"
 INCIDENT_FILE="$BASE_DIR/incidents.md"
 STATE_FILE="$BASE_DIR/state.json"
 RUN_LOG="$BASE_DIR/watchdog.log"

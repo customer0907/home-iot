@@ -2,7 +2,7 @@
 # TARS 오디오 준비. eMeet USB 재열거 후에도 안전하게 재적용되도록 작성.
 SRC="alsa_input.usb-EMEET_OfficeCore_M0_Plus_EMEET_OfficeCore_M0_Plus_EM140c8d78cae29738-00.mono-fallback"
 SNK="alsa_output.usb-EMEET_OfficeCore_M0_Plus_EMEET_OfficeCore_M0_Plus_EM140c8d78cae29738-00.analog-stereo"
-LOG=/home/infrun42/TARS-AI/src/logs/audio-setup.log
+LOG=$HOME/TARS-AI/src/logs/audio-setup.log
 mkdir -p "$(dirname "$LOG")"
 log(){ echo "[$(date '+%F %T')] $*" >> "$LOG"; }
 

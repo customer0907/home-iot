@@ -76,7 +76,6 @@ flowchart LR
 ## 7. 성과
 - 상시 운영 컨테이너 4종 (Home Assistant, Mosquitto, Zigbee2MQTT, MediaMTX)
 - HA 자동화 5개, HA 통합 13종(MQTT, SmartThings, LG ThinQ, 모바일 앱 등)
-<!-- TODO(사용자 확인): 운영 기간·가동률 등 정량 수치 -->
 
 ## 8. 실행 방법
 ```bash
