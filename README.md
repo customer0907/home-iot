@@ -2,7 +2,9 @@
 
 > 상시 가동 Ubuntu 홈서버에 Docker로 Home Assistant·MQTT·Zigbee를 올리고, 음성 비서 TARS와 NodeMCU 스마트전등을 연동한 스마트홈
 
-<!-- TODO(사용자 확인): 대표 사진 docs/images/hero.jpg (스위치에 붙인 서보 전등) -->
+<img src="docs/images/smart_light.gif" width="360" alt="폰 앱 ON/OFF → NodeMCU(ESP8266)가 SG90 서보로 벽 스위치를 직접 누름" />
+
+> 폰 앱 ON/OFF → NodeMCU(ESP8266)가 SG90 서보로 벽 스위치를 직접 눌러 조명 제어 (기존 배선 무변경)
 
 | 기간 | 인원 | 역할 | 상태 |
 |---|---|---|---|
