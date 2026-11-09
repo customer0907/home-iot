@@ -1,0 +1,8 @@
+[Unit]
+Description=Re-apply TARS audio setup after eMeet re-enumeration
+After=pulseaudio.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 3
+ExecStart=/home/infrun42/tars-audio-setup.sh

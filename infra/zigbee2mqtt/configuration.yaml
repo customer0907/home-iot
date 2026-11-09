@@ -1,0 +1,33 @@
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://172.17.0.1:1883
+  keepalive: 60
+  reject_unauthorized: ***REDACTED***
+  version: 4
+homeassistant:
+  enabled: true
+serial:
+  port: >-
+    /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_82c66fcc6415f0119b8ed974b887153e-if00-port0
+  adapter: zstack
+frontend:
+  enabled: true
+  port: 8080
+  host: 0.0.0.0
+version: 5
+availability:
+  enabled: true
+  active:
+    timeout: 10
+  passive:
+    timeout: 720
+advanced:
+  last_seen: ISO_8601
+  log_level: debug
+  transmit_power: 20
+  channel: 11
+devices:
+  '0xa4c1388a3c224e96':
+    friendly_name: HA-DISCORD
+  '0xa4c138ab8de5133d':
+    friendly_name: '0xa4c138ab8de5133d'

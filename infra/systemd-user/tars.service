@@ -1,0 +1,31 @@
+[Unit]
+Description=TARS-AI voice assistant
+Documentation=https://github.com/customer0907/TARS.git
+After=pulseaudio.service sound.target
+Wants=pulseaudio.service
+
+# 재시작 횟수 제한 해제 (기본값은 10초 내 5회 실패 시 포기)
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/home/infrun42/TARS-AI/src
+
+# 오디오 기본 장치/에코캔슬 세팅. 실패해도 앱은 계속 뜨도록 '-' 접두사.
+ExecStartPre=-/home/infrun42/tars-audio-setup.sh
+
+ExecStart=/home/infrun42/TARS-AI/src/.venv/bin/python -u app.py
+
+Restart=always
+RestartSec=10
+TimeoutStopSec=20
+KillSignal=SIGINT
+
+Environment=PYTHONUNBUFFERED=1
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=tars
+
+[Install]
+WantedBy=default.target

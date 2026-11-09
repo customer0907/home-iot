@@ -1,0 +1,80 @@
+- id: tars_turn_on_light
+  alias: TARS 불 켜기
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: input_boolean.tars_light
+    to: 'on'
+  action:
+  - service: mqtt.publish
+    data:
+      topic: tars/sg90
+      payload: 'on'
+- id: tars_turn_off_light
+  alias: TARS 불 끄기
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: input_boolean.tars_light
+    to: 'off'
+  action:
+  - service: mqtt.publish
+    data:
+      topic: tars/sg90
+      payload: 'off'
+- id: '1781095772569'
+  alias: zigbee_door_mobile_app
+  description: 2026-09-09 새 센서(0xa4c1388a3c224e96)로 교체
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.0xa4c1388a3c224e96_occupancy
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_samseongnoteubug
+    metadata: {}
+    data:
+      message: someone detected
+      title: zigbee
+  - action: rest_command.discord_notify
+    metadata: {}
+    data:
+      message: someone detected
+  mode: single
+- id: zigbee_sensor_offline_alert
+  alias: 모션센서 오프라인 알림
+  description: 센서가 12시간 이상 응답 없으면 알림 (2026-09-04 무음 사고 재발 방지)
+  initial_state: true
+  mode: single
+  triggers:
+  - trigger: mqtt
+    topic: zigbee2mqtt/0xa4c1388a3c224e96/availability
+    value_template: '{{ value_json.state }}'
+    payload: offline
+  conditions: []
+  actions:
+  - action: notify.mobile_app_samseongnoteubug
+    data:
+      title: "⚠️ Zigbee"
+      message: 현관 모션 센서 응답 없음 (12시간 이상). 센서 배터리 분리 후 재삽입 필요.
+  - action: rest_command.discord_notify
+    data:
+      message: "⚠️ 현관 모션 센서 오프라인 - 12시간 이상 응답 없음"
+- id: zigbee_bridge_offline_alert
+  alias: Zigbee 브릿지 오프라인 알림
+  description: z2m/동글 자체가 죽으면 알림 (USB 재열거 사고 대비)
+  initial_state: true
+  mode: single
+  triggers:
+  - trigger: mqtt
+    topic: zigbee2mqtt/bridge/state
+    value_template: '{{ value_json.state }}'
+    payload: offline
+  conditions:
+  - condition: template
+    value_template: '{{ as_timestamp(now()) - as_timestamp(state_attr(this.entity_id, "last_triggered") or 0) > 600 }}'
+  actions:
+  - action: rest_command.discord_notify
+    data:
+      message: "\U0001F534 Zigbee2MQTT 브릿지 오프라인 - 동글/USB 확인 필요"

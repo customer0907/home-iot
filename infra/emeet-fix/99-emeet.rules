@@ -1,0 +1,9 @@
+# eMeet OfficeCore M0 Plus: 재열거될 때마다 TARS 오디오 세팅 재적용
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="328f", ATTR{idProduct}=="0109", \
+  TAG+="systemd", ENV{SYSTEMD_USER_WANTS}+="emeet-reapply.service"
+# 자동 서스펜드 금지 (오디오 기기가 절전 진입 후 깨어나지 못하는 사례 차단)
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="328f", ATTR{idProduct}=="0109", \
+  TEST=="power/control", ATTR{power/control}="on"
+# 소속 허브도 서스펜드 금지 (Single TT 허브가 절전 진입 시 하위 기기 동반 실종)
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="05e3", ATTR{idProduct}=="0610", \
+  TEST=="power/control", ATTR{power/control}="on"

@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    restart: always
+    volumes:
+      - ./data:/app/data
+      - /run/udev:/run/udev:ro
+      # 동글이 빠졌다 다시 꽂혀도 컨테이너가 새 장치 노드를 볼 수 있도록 /dev 전체를 마운트.
+      # (devices: 로 고정하면 장치가 사라진 순간 컨테이너 자체가 기동 불가가 됨)
+      - /dev:/dev
+    # ttyUSB* 의 major 번호 188 에 대한 접근 권한
+    device_cgroup_rules:
+      - 'c 188:* rmw'
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Asia/Seoul
+      # 어댑터 끊김 등 비정상 종료 시 2s, 1m, 5m, 15m, 30m, 60m 간격으로 자동 재시도
+      - Z2M_WATCHDOG=default
